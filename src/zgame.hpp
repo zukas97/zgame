@@ -1,4 +1,4 @@
-#include <iostream.h>
+#include <iostream>
 #include <SDL2/SDL.h>
 
 typedef struct Zgame {
@@ -10,3 +10,5 @@ typedef struct Zgame {
         RUNNING
     }
 } Game;
+
+int ZG_Init(Game game);
