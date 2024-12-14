@@ -1,5 +1,2 @@
-#include "./zgame.h"
+#include "./zgame.hpp"
 
-int ZG_Init(Game game) {
-
-}
