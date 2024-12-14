@@ -1,7 +1,10 @@
+#ifndef ZGAME_H
+#define ZGAME_H
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
 #include <iostream>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 /*
 typedef struct Zgame {
     SDL_Window* win;
@@ -50,11 +53,38 @@ class Game {
 				perror("failed to init renderer");
 				return -1;
 			}
+			if (!IMG_Init(IMG_INIT_PNG || IMG_INIT_JPG)) {
+				perror(IMG_GetError());
+				return -1;
+			}
 			return 0;
+		}
+		void set_background_color() {
+
 		}
 		void destroy() {
 			SDL_DestroyRenderer(win.SDL_rend);
 			SDL_DestroyWindow(win.SDL_win);
+			SDL_Quit();
 		}
 };
 
+class Sprite {
+	public:
+		SDL_Surface* surface;
+		SDL_Texture* texture;
+		void set_image(Game game, char* image) {
+			surface = IMG_Load(image);
+			if (surface == NULL) {
+				perror("image is NULL");
+			}
+			SDL_CreateTextureFromSurface(game.win.SDL_rend, surface);
+			SDL_FreeSurface(surface);
+		}
+		SDL_Rect rect;
+};
+
+void ZG_Init_Renderer(Game game);
+
+
+#endif
