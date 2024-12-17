@@ -5,6 +5,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include "./zvector.h"
 /*
 typedef struct Zgame {
     SDL_Window* win;
@@ -18,6 +19,10 @@ typedef struct Zgame {
 
 using namespace std;
 
+void add_vector(Vec2 vector, int* x, int* y) {
+	*x = vector.x;
+	*y = vector.y;
+}
 
 class Game {
 	public:
