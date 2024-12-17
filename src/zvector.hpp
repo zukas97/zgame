@@ -10,4 +10,4 @@ class Vec2 {
         }
 }
 
-void add_vector(Vec2 vector, int x, int y);
+void ZG_add_vector(Vec2 vector, int x, int y);
