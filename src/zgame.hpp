@@ -86,5 +86,6 @@ class Sprite {
 
 void ZG_Init_Renderer(Game game);
 
+void ZG_Render_Image(SDL_Renderer* rend, SDL_Texture* texture);
 
 #endif

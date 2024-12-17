@@ -12,6 +12,14 @@ void ZG_Init_Renderer(Game game, SDL_Color background) {
 	SDL_RenderClear(game.win.SDL_rend);
 }
 
+
+void ZG_Render_Image(SDL_Renderer* rend, SDL_Texture* texture, SDL_Rect rect) {
+	SDL_RenderClear(rend);
+
+	SDL_RenderCopy(rend, texture, NULL, &rect);
+	SDL_RenderPresent(rend);
+}
+
 void ZG_GetInput() {
 	SDL_Event event;
 }
