@@ -90,17 +90,20 @@ class Sprite {
 		SDL_Texture* texture;
 		Vec2 vel = {0, 0};
 		SDL_Rect rect;
-		void set_image(Game game, char* image) {
-			surface = IMG_Load(image);
+		int x, y;
+		void set_image(Game game, string image) {
+			surface = IMG_Load(image.c_str());
 			if (surface == NULL) {
 				perror("image is NULL");
 			}
 			texture = SDL_CreateTextureFromSurface(game.win.SDL_rend, surface);
 			SDL_FreeSurface(surface);
 		}
-		void vector_update() {
-			rect.x += vel.x;
-			rect.y += vel.y;
+		void update_pos() {
+			x += vel.x;
+			y += vel.y;
+			rect.x = x;
+			rect.y = y;
 		}
 };
 
@@ -113,7 +116,7 @@ void ZG_Render_Image(Game game, SDL_Texture* texture);
 void ZG_Render_Sprite(Game game, Sprite sprite);
 void ZG_Render_Update(Game game);
 
-void ZG_GetKey(Game game, int key);
+bool ZG_Is_Key_Pressed(Game game, int key);
 bool ZG_Is_Quitting(Game game);
 
 bool ZG_Sprites_Colliding(Sprite sprite1, Sprite sprite2);
