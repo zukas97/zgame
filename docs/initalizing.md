@@ -13,8 +13,7 @@ game.init();
 
 ```
 <br />
-<br />
-<br />
+
 # Destroy and Exit
 To cleanly Exit run:
 ```C++
