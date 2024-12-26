@@ -74,23 +74,6 @@ class Game {
 		SDL_Event input_event;
 
 };
-
-class Sprite {
-	public:
-		SDL_Surface* surface;
-		SDL_Texture* texture;
-		void set_image(Game game, char* image) {
-			surface = IMG_Load(image);
-			if (surface == NULL) {
-				perror("image is NULL");
-			}
-			texture = SDL_CreateTextureFromSurface(game.win.SDL_rend, surface);
-			SDL_FreeSurface(surface);
-		}
-		SDL_Rect rect;
-};
-
-
 class Vec2 {
     public:
         int x, y;
@@ -100,6 +83,27 @@ class Vec2 {
             x = ny;
         }
 };
+
+class Sprite {
+	public:
+		SDL_Surface* surface;
+		SDL_Texture* texture;
+		Vec2 vel = {0, 0};
+		SDL_Rect rect;
+		void set_image(Game game, char* image) {
+			surface = IMG_Load(image);
+			if (surface == NULL) {
+				perror("image is NULL");
+			}
+			texture = SDL_CreateTextureFromSurface(game.win.SDL_rend, surface);
+			SDL_FreeSurface(surface);
+		}
+		void vector_update() {
+			rect.x += vel.x;
+			rect.y += vel.y;
+		}
+};
+
 
 void ZG_add_vector(Vec2 vector, int x, int y);
 void ZG_Sprite_add_vector(Vec2 vector, Sprite sprite);
@@ -111,5 +115,7 @@ void ZG_Render_Update(Game game);
 
 void ZG_GetKey(Game game, int key);
 bool ZG_Is_Quitting(Game game);
+
+bool ZG_Sprites_Colliding(Sprite sprite1, Sprite sprite2);
 
 #endif

@@ -54,3 +54,11 @@ bool ZG_Is_Quitting(Game game) {
 	return false;
 
 }
+
+bool ZG_Sprites_Colliding(Sprite sprite1, Sprite sprite2) {
+	if (SDL_HasIntersection(&sprite1.rect, &sprite2.rect)) {
+		return true;
+	}
+	return false;
+}
+
