@@ -1,6 +1,6 @@
 # Initalizing Zgame
 The first step is creating a `Game` frome the `Game` class
-```c++
+```C++
 Game game;
 ```
 Then you must set some properties and calle `Game.init()`
@@ -17,6 +17,6 @@ game.init();
 <br />
 # Destroy and Exit
 To cleanly Exit run:
-```c
+```C++
 game.destroy();
 ```
