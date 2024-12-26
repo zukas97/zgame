@@ -44,3 +44,13 @@ bool ZG_Is_Key_Pressed(Game game, int key) {
 	}
 	return false;
 }
+
+bool ZG_Is_Quitting(Game game) {
+	while (SDL_PollEvent(&game.input_event)) {
+		if (game.input_event.type == SDL_QUIT) {
+			return true;
+		}
+	}
+	return false;
+
+}

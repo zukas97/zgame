@@ -84,13 +84,12 @@ class Sprite {
 			if (surface == NULL) {
 				perror("image is NULL");
 			}
-			SDL_CreateTextureFromSurface(game.win.SDL_rend, surface);
+			texture = SDL_CreateTextureFromSurface(game.win.SDL_rend, surface);
 			SDL_FreeSurface(surface);
 		}
 		SDL_Rect rect;
 };
 
-void ZG_Init_Renderer(Game game, SDL_Color background);
 
 class Vec2 {
     public:
@@ -103,10 +102,14 @@ class Vec2 {
 };
 
 void ZG_add_vector(Vec2 vector, int x, int y);
+void ZG_Sprite_add_vector(Vec2 vector, Sprite sprite);
+
+void ZG_Init_Renderer(Game game, SDL_Color background);
 void ZG_Render_Image(Game game, SDL_Texture* texture);
 void ZG_Render_Sprite(Game game, Sprite sprite);
 void ZG_Render_Update(Game game);
 
 void ZG_GetKey(Game game, int key);
+bool ZG_Is_Quitting(Game game);
 
 #endif
