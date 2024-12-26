@@ -70,6 +70,9 @@ class Game {
 			SDL_DestroyWindow(win.SDL_win);
 			SDL_Quit();
 		}
+
+		SDL_Event input_event;
+
 };
 
 class Sprite {
@@ -101,6 +104,9 @@ class Vec2 {
 
 void ZG_add_vector(Vec2 vector, int x, int y);
 void ZG_Render_Image(Game game, SDL_Texture* texture);
+void ZG_Render_Sprite(Game game, Sprite sprite);
 void ZG_Render_Update(Game game);
+
+void ZG_GetKey(Game game, int key);
 
 #endif

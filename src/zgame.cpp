@@ -23,19 +23,24 @@ void ZG_Init_Renderer(Game game, SDL_Color background) {
 }
 
 
-void ZG_Render_Image(SDL_Renderer* rend, SDL_Texture* texture, SDL_Rect rect) {
-	SDL_RenderClear(rend);
+void ZG_Render_Image(Game game, SDL_Texture* texture, SDL_Rect rect) {
+	
+	SDL_RenderClear(game.win.SDL_rend);
 
-	SDL_RenderCopy(rend, texture, NULL, &rect);
-	SDL_RenderPresent(rend);
+	SDL_RenderCopy(game.win.SDL_rend, texture, NULL, &rect);
+	SDL_RenderPresent(game.win.SDL_rend);
 }
 
-void ZG_Render_Update(Game game) {
+void ZG_Render_Update(Game game){
 	SDL_RenderClear(game.win.SDL_rend);
 	SDL_RenderPresent(game.win.SDL_rend);
 }
 
-void ZG_GetInput() {
-	SDL_Event event;
+bool ZG_Is_Key_Pressed(Game game, int key) {
+	while (SDL_PollEvent(&game.input_event)) {
+		if (game.input_event.key.keysym.sym == key) {
+			return true;
+		}
+	}
+	return false;
 }
-
