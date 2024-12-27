@@ -6,27 +6,14 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "ztypes.hpp"
-/*
-typedef struct Zgame {
-    SDL_Window* win;
-    SDL_Renderer* rend;
-    enum gamestate = {
-        STOPPED,
-        GAMEOVER,
-        RUNNING
-    }
-} Game;*/
 
 using namespace std;
-
-
 
 
 void ZG_add_vector(Vec2 vector, int x, int y);
 void ZG_Sprite_add_vector(Vec2 vector, Sprite sprite);
 
 void ZG_Init_Renderer(Game game, SDL_Color background);
-void ZG_Render_Image(Game game, SDL_Texture* texture);
 void ZG_Render_Sprite(Game game, Sprite sprite);
 void ZG_Render_Update(Game game);
 

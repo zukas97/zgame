@@ -1,5 +1,8 @@
 LIBS = -lSDL2 -lSDL2_image
 build:
-	g++ -fPIC -shared $(LIBS) ./src/zgame.cpp -o libzgame.so
+	g++ -fPIC -shared -c $(LIBS) ./src/zrenderer.cpp -o zrenderer.o
+	g++ -fPIC -shared -c $(LIBS) ./src/zgame.cpp -o zgame.o
+	g++ -fPIC -shared  $(LIBS) zgame.o zrenderer.o -o libzgame.so
+	rm *.o
 	
 
