@@ -26,7 +26,6 @@ void ZG_Sprite_add_vector(Vec2 vector, Sprite sprite) {
 }
 
 
-
 bool ZG_Is_Key_Pressed(Game game, int key) {
 	while (SDL_PollEvent(&game.input_event)) {
 		if (game.input_event.key.keysym.sym == key) {
