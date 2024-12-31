@@ -16,6 +16,8 @@ class Game {
 		    int x, y, w, h;
 		    string name;
 		} win;
+		bool is_gravity = false;
+		double gravity_multiplier = 1;
 		GameState state;
 		int init() {
 			printf("initalizing zgame...\n");
@@ -75,20 +77,37 @@ class Sprite {
 		Vec2 vel = {0, 0};
 		SDL_Rect rect;
 		int x, y;
-		void set_image(Game game, string image) {
+		Game* game;
+		int gravity = 5;
+		bool is_gravity;
+
+		void init(Game global_game) {
+			game = &global_game;
+		}
+		void set_image(string image) {
 			surface = IMG_Load(image.c_str());
 			if (surface == NULL) {
 				perror("image is NULL");
 			}
-			texture = SDL_CreateTextureFromSurface(game.win.SDL_rend, surface);
+			texture = SDL_CreateTextureFromSurface(game->win.SDL_rend, surface);
 			SDL_FreeSurface(surface);
 		}
 		void update_pos() {
 			x += vel.x;
 			y += vel.y;
+			if (game->is_gravity) {
+				if (is_gravity) {
+					y += (gravity * game->gravity_multiplier);
+				}
+			}
 			rect.x = x;
 			rect.y = y;
+
+
 		}
+
+
+
 };
 
 class TextureRect {
@@ -96,21 +115,27 @@ class TextureRect {
 		SDL_Surface* surface = NULL;
 		SDL_Texture* texture = NULL;
 		SDL_Rect rect;
-		void set_image(Game game, string image) {
+		Game* game;
+
+		void init(Game global_game) {
+			game = &global_game;
+		}
+
+		void set_image(string image) {
 			surface = IMG_Load(image.c_str());
 			if (surface == NULL) {
 				perror("image is NULL");
 			}
-			texture = SDL_CreateTextureFromSurface(game.win.SDL_rend, surface);
+			texture = SDL_CreateTextureFromSurface(game->win.SDL_rend, surface);
 			SDL_FreeSurface(surface);
 		}
 
-		void render(Game game) {
+		void render() {
 			if (texture == NULL) {
 				printf("E: texture is NULL\n");
 				return;
 			}
-			SDL_RenderCopy(game.win.SDL_rend, texture, NULL, &rect);
+			SDL_RenderCopy(game->win.SDL_rend, texture, NULL, &rect);
 
 		}
 };

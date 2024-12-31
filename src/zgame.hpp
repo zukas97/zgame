@@ -9,6 +9,7 @@
 
 using namespace std;
 
+void ZG_Init_Colors();
 
 void ZG_add_vector(Vec2 vector, int x, int y);
 void ZG_Sprite_add_vector(Vec2 vector, Sprite sprite);
