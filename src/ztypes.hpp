@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_render.h>
 #include <stdio.h>
 #include <iostream>
 using namespace std;
@@ -67,7 +68,7 @@ class Game {
 };
 class Vec2 {
     public:
-        int x, y;
+        double x, y;
 
         void init(int nx, int ny) {
             x = nx;
@@ -80,8 +81,10 @@ class Sprite {
 		SDL_Surface* surface;
 		SDL_Texture* texture;
 		Vec2 vel = {0, 0};
+		double speed = 1;
 		SDL_Rect rect;
-		int x, y;
+		int* x = &rect.x;
+		int* y = &rect.x;
 		int gravity = 5;
 		bool is_gravity;
 
@@ -99,7 +102,7 @@ class Sprite {
 			}
 
 		}
-		void set_image(string image) {
+		void set_image(string image, double scale) {
 
 			surface = IMG_Load(image.c_str());
 			if (surface == NULL) {
@@ -113,22 +116,26 @@ class Sprite {
 
 			texture = SDL_CreateTextureFromSurface(game->win.SDL_rend, surface);
 			SDL_FreeSurface(surface);
+
+			SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+			printf("%d, %d\n", rect.w, rect.h);
+			rect.h *= scale;
+			rect.w *= scale;
+
 		}
 		void update_pos() {
-			x += vel.x;
-			y += vel.y;
+			*x += vel.x * speed;
+			*y += vel.y * speed;
 			if (game->is_gravity) {
 				if (is_gravity) {
-					y += (gravity * game->gravity_multiplier);
+					*y += (gravity * game->gravity_multiplier);
 				}
 			}
-			rect.x = x;
-			rect.y = y;
 
 		}
-
-
-
+		void destroy_texture() {
+			SDL_DestroyTexture(texture);
+		}
 };
 
 class TextureRect {
