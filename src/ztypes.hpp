@@ -88,7 +88,7 @@ class Vec2 {
 
         void init(int nx, int ny) {
             x = nx;
-            x = ny;
+            y = ny;
         }
 };
 
@@ -101,10 +101,10 @@ class Sprite {
 		double speed = 1;
 		SDL_Rect rect;
 		int* x = &rect.x;
-		int* y = &rect.x;
+		int* y = &rect.y;
 
-		int gravity = 5;
-		bool is_gravity;
+		int gravity = 250;
+		bool is_gravity = false;
 
 		Game* game;
 		void init(Game* global_game) {
@@ -121,10 +121,6 @@ class Sprite {
 			if (surface == NULL) {
 				perror("image is NULL");
 				exit(1);
-			}if (game->win.SDL_rend == nullptr || game->win.SDL_rend == NULL) {
-				perror("renderer is NULL");
-				exit(1);
-
 			}
 
 			texture = SDL_CreateTextureFromSurface(game->win.SDL_rend, surface);
@@ -140,7 +136,7 @@ class Sprite {
 			*y += vel.y * speed * game->delta;
 			if (game->is_gravity) {
 				if (is_gravity) {
-					*y += (gravity * game->gravity_multiplier);
+					*y += (gravity * game->gravity_multiplier) * game->delta;
 				}
 			}
 
