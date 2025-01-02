@@ -8,6 +8,14 @@ enum GameState {
 		GAMEOVER,
 		RUNNING
 	};
+enum ColorList {
+	WHITE,
+	BLACK,
+	RED,
+	GREEN,
+	BLUE
+};
+
 class Game {
 	public:
 		struct window {
@@ -77,18 +85,35 @@ class Sprite {
 		Vec2 vel = {0, 0};
 		SDL_Rect rect;
 		int x, y;
-		Game* game;
 		int gravity = 5;
 		bool is_gravity;
 
-		void init(Game global_game) {
-			game = &global_game;
+		Game* game;
+		void init(Game* global_game) {
+			game = global_game;
+			if (game == nullptr) {
+				perror("game is NULL");
+				exit(1);
+			}
+			else if (game->win.SDL_rend == nullptr || game->win.SDL_rend == NULL) {
+				perror("renderer is NULL");
+				exit(1);
+
+			}
+
 		}
 		void set_image(string image) {
+
 			surface = IMG_Load(image.c_str());
 			if (surface == NULL) {
 				perror("image is NULL");
+				exit(1);
+			}if (game->win.SDL_rend == nullptr || game->win.SDL_rend == NULL) {
+				perror("renderer is NULL");
+				exit(1);
+
 			}
+
 			texture = SDL_CreateTextureFromSurface(game->win.SDL_rend, surface);
 			SDL_FreeSurface(surface);
 		}
@@ -102,7 +127,6 @@ class Sprite {
 			}
 			rect.x = x;
 			rect.y = y;
-
 
 		}
 
@@ -130,7 +154,7 @@ class TextureRect {
 			SDL_FreeSurface(surface);
 		}
 
-		void render() {
+		void render_add() {
 			if (texture == NULL) {
 				printf("E: texture is NULL\n");
 				return;

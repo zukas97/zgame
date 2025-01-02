@@ -9,7 +9,7 @@
 
 using namespace std;
 
-void ZG_Init_Colors();
+
 
 void ZG_add_vector(Vec2 vector, int x, int y);
 void ZG_Sprite_add_vector(Vec2 vector, Sprite sprite);
@@ -22,5 +22,7 @@ bool ZG_Is_Key_Pressed(Game game, int key);
 bool ZG_Is_Quitting(Game game);
 
 bool ZG_Sprites_Colliding(Sprite sprite1, Sprite sprite2);
+
+
 
 #endif
