@@ -56,9 +56,6 @@ class Game {
 			state = RUNNING;
 			return 0;
 		}
-		void set_background_color() {
-
-		}
 		void destroy() {
 			SDL_DestroyRenderer(win.SDL_rend);
 			SDL_DestroyWindow(win.SDL_win);
