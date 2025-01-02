@@ -12,14 +12,9 @@ void ZG_Render_Image(Game game, SDL_Texture* texture, SDL_Rect rect) {
 	SDL_RenderClear(game.win.SDL_rend);
 
 	SDL_RenderCopy(game.win.SDL_rend, texture, NULL, &rect);
-	SDL_RenderPresent(game.win.SDL_rend);
 }
-
 void ZG_Render_Sprite(Game game, Sprite sprite) {
-	
-
 	SDL_RenderCopy(game.win.SDL_rend, sprite.texture, NULL, &sprite.rect);
-	SDL_RenderPresent(game.win.SDL_rend);
 }
 void ZG_Render_Update(Game game){
 	SDL_RenderPresent(game.win.SDL_rend);
