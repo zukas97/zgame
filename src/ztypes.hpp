@@ -51,7 +51,7 @@ class Game {
 		}
 
 		int init(int flags) {
-			ZG_VerboseMessage("initalizing zgame...", 0, flags);
+			ZG_VerboseMessage("initalizing zgame...", NORMAL_MSG, flags);
 
 			// create window
 			if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -85,7 +85,7 @@ class Game {
 				perror("failed to init renderer");
 				return -1;
 			}
-			if (!IMG_Init(IMG_INIT_PNG || IMG_INIT_JPG)) {
+			if (!IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG)) {
 				perror(IMG_GetError());
 				return -1;
 			}

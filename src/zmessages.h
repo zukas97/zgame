@@ -9,4 +9,6 @@ using namespace std;
 
 int ZG_VerboseMessage(string message, int type, int flags);
 
+void ZG_MessageBox(string title, string message, int type);
+
 #endif
