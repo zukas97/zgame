@@ -4,7 +4,14 @@
 #include <SDL2/SDL_video.h>
 #include <stdio.h>
 #include <iostream>
+#include "zmessages.h"
 using namespace std;
+
+enum Startflags {
+	VSYNC = 1,
+	NO_VSYNC = 2,
+	VERBOSE = 3
+};
 enum GameState {
 		STOPPED,
 		GAMEOVER,
@@ -43,8 +50,10 @@ class Game {
 			last_frame_time = SDL_GetTicks();
 		}
 
-		int init() {
-			//printf("initalizing zgame...\n");
+		int init(int flags) {
+			ZG_VerboseMessage("initalizing zgame...", 0, flags);
+
+			// create window
 			if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 				perror("Failed to init SDL\n");
 				return -1;
@@ -59,7 +68,19 @@ class Game {
 				perror("failed to init window");
 				return -1;
 			}
-			win.SDL_rend = SDL_CreateRenderer(win.SDL_win, -1, SDL_RENDERER_ACCELERATED);
+
+			//Create Renderer
+
+			// calculate render flags
+			if (flags & !VSYNC || flags & NO_VSYNC) {
+				win.SDL_rend = SDL_CreateRenderer(win.SDL_win, -1, SDL_RENDERER_ACCELERATED);
+			} else if (flags & VSYNC) {
+				win.SDL_rend = SDL_CreateRenderer(win.SDL_win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+			} else {
+				win.SDL_rend = SDL_CreateRenderer(win.SDL_win, -1, SDL_RENDERER_ACCELERATED);
+			}
+
+
 			if (!win.SDL_rend) {
 				perror("failed to init renderer");
 				return -1;
@@ -68,8 +89,10 @@ class Game {
 				perror(IMG_GetError());
 				return -1;
 			}
-			frame_time =  (1000/FPS);
 
+
+			//end of init
+			frame_time =  (1000/FPS);
 			state = RUNNING;
 			return 0;
 		}
