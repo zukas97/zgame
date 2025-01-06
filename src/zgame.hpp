@@ -15,8 +15,8 @@ void ZG_add_vector(Vec2 vector, int x, int y);
 void ZG_Sprite_add_vector(Vec2 vector, Sprite sprite);
 
 void ZG_Init_Renderer(Game game, SDL_Color background);
-void ZG_Render_Add_Sprite(Game game, Sprite sprite);
-void ZG_Render_Update(Game game);
+void ZG_Render_Add_Sprite(Game* game, Sprite sprite);
+void ZG_Render_Update(Game* game);
 
 bool ZG_Is_Key_Pressed(Game game, int key);
 bool ZG_Is_Quitting(Game game);

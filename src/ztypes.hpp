@@ -131,6 +131,7 @@ class Sprite {
 
 		int gravity = 250;
 		bool is_gravity = false;
+		string name;
 
 		int Z = 0;
 
