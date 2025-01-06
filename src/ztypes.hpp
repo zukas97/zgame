@@ -4,6 +4,7 @@
 #include <SDL2/SDL_video.h>
 #include <stdio.h>
 #include <iostream>
+#include <vector>
 #include "zmessages.h"
 using namespace std;
 
@@ -24,6 +25,7 @@ enum ColorList {
 	GREEN,
 	BLUE
 };
+class Sprite;
 
 class Game {
 	public:
@@ -40,6 +42,7 @@ class Game {
 		int frame_time = (1000/FPS);
 		int last_frame_time = SDL_GetTicks();
 		float delta;
+		vector<Sprite> sprites;
 
 		void update() {
 			int wait_time = frame_time - (SDL_GetTicks() - last_frame_time);
@@ -107,7 +110,7 @@ class Game {
 };
 class Vec2 {
     public:
-        double x, y;
+        int x, y;
 
         void init(int nx, int ny) {
             x = nx;
@@ -121,13 +124,15 @@ class Sprite {
 		SDL_Texture* texture;
 
 		Vec2 vel = {0, 0};
-		double speed = 1;
+		double speed = 1.0;
 		SDL_Rect rect;
 		int* x = &rect.x;
 		int* y = &rect.y;
 
 		int gravity = 250;
 		bool is_gravity = false;
+
+		int Z = 0;
 
 		Game* game;
 		void init(Game* global_game) {
@@ -155,8 +160,10 @@ class Sprite {
 
 		}
 		void update_pos() {
-			*x += vel.x * speed * game->delta;
-			*y += vel.y * speed * game->delta;
+			rect.x += (vel.x * speed) * (1 +(int)game->delta);
+			rect.y += vel.y * speed * game->delta;
+			//printf("x vel: %f\n", (vel.x * speed) * game->delta);
+			//printf("delta: %f\n", game->delta);
 			if (game->is_gravity) {
 				if (is_gravity) {
 					*y += (gravity * game->gravity_multiplier) * game->delta;
