@@ -1,5 +1,7 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_events.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
 #include <stdio.h>
@@ -117,10 +119,18 @@ class Game {
 		SDL_Event input_event;
 
 		Vec2 Get_Mouse_Position() {
-			Vec2 pos;
-			pos.x = input_event.motion.x;
-			pos.y = input_event.motion.y;
+				Vec2 pos;
+			while (SDL_PollEvent(&input_event)) {
+				pos.x = input_event.motion.x;
+				pos.y = input_event.motion.y;
+			}
 			return pos;
+		}
+		void Capture_mouse() {
+			SDL_SetRelativeMouseMode(SDL_TRUE);
+		}
+		void Release_mouse() {
+			SDL_SetRelativeMouseMode(SDL_FALSE);
 		}
 
 };
