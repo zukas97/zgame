@@ -26,14 +26,23 @@ enum ColorList {
 	BLUE
 };
 class Sprite;
+class Vec2 {
+    public:
+        double x, y;
+
+        void init(int nx, int ny) {
+            x = nx;
+            y = ny;
+        }
+};
 
 class Game {
 	public:
 		struct window {
-		    SDL_Window* SDL_win;
-		    SDL_Renderer* SDL_rend;
-		    int x, y, w, h;
-		    string name;
+			SDL_Window* SDL_win;
+			SDL_Renderer* SDL_rend;
+			int x, y, w, h;
+			string name;
 		} win;
 		bool is_gravity = false;
 		double gravity_multiplier = 1;
@@ -107,15 +116,13 @@ class Game {
 
 		SDL_Event input_event;
 
-};
-class Vec2 {
-    public:
-        int x, y;
+		Vec2 Get_Mouse_Position() {
+			Vec2 pos;
+			pos.x = input_event.motion.x;
+			pos.y = input_event.motion.y;
+			return pos;
+		}
 
-        void init(int nx, int ny) {
-            x = nx;
-            y = ny;
-        }
 };
 
 class Sprite {
@@ -126,8 +133,6 @@ class Sprite {
 		Vec2 vel = {0, 0};
 		double speed = 1.0;
 		SDL_Rect rect;
-		int* x = &rect.x;
-		int* y = &rect.y;
 
 		int gravity = 250;
 		bool is_gravity = false;
@@ -163,11 +168,9 @@ class Sprite {
 		void update_pos() {
 			rect.x += (vel.x * speed) * (1 +(int)game->delta);
 			rect.y += vel.y * speed * game->delta;
-			//printf("x vel: %f\n", (vel.x * speed) * game->delta);
-			//printf("delta: %f\n", game->delta);
 			if (game->is_gravity) {
 				if (is_gravity) {
-					*y += (gravity * game->gravity_multiplier) * game->delta;
+					rect.y += (gravity * game->gravity_multiplier) * game->delta;
 				}
 			}
 
